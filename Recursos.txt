@@ -1,0 +1,5 @@
+Interfacing SX1278 LoRa Module with ESP32: https://electropeak.com/learn/interfacing-sx1278-lora-module-with-esp32/
+esp32 lora rfm95 transceiver arduino ide: https://randomnerdtutorials.com/esp32-lora-rfm95-transceiver-arduino-ide/
+Radio LoRa Ra-01 With STM32 and ESP32: https://www.instructables.com/Radio-LoRa-Ra-01-With-STM32-and-ESP32/
+Ra-01 LoRa Module: https://docs.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf
+SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pinout-arduino-interfacing-datasheet/
