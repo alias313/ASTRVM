@@ -4,4 +4,16 @@ Radio LoRa Ra-01 With STM32 and ESP32: https://www.instructables.com/Radio-LoRa-
 Ra-01 LoRa Module: https://docs.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf
 SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pinout-arduino-interfacing-datasheet/
 
+Serial communication VSCode: 
+https://engineer2you.blogspot.com/2016/12/arduino-serial-communication-visual.html
+
+Motor PID speed control:
+https://create.arduino.cc/projecthub/whitebank/arduino-motor-pid-speed-control-5f4632
+
 PID: https://pidexplained.com/pid-controller-explained/
+
+ESP32 memory types:
+https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/memory-types.html
+
+Youtube cansat playlist:
+https://www.youtube.com/playlist?list=PLbzoRLzJ7BBKYYhPqCsW5B1qVilTnRPpw
