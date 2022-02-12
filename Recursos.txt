@@ -4,6 +4,11 @@ Radio LoRa Ra-01 With STM32 and ESP32: https://www.instructables.com/Radio-LoRa-
 Ra-01 LoRa Module: https://docs.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf
 SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pinout-arduino-interfacing-datasheet/
 
+Sketch uses too much memory:
+https://github.com/SensorsIot/Bluetooth-BLE-on-Arduino-IDE/issues/3
+
+
+
 Serial communication VSCode: 
 https://engineer2you.blogspot.com/2016/12/arduino-serial-communication-visual.html
 
