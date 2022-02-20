@@ -7,6 +7,9 @@ SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pin
 Cómo desoldar:
 https://clevercreations.org/how-to-desolder-guide/
 
+HGLRC F722 Mini:
+https://www.hglrc.com/products/hglrc-zeus-f722-mini-3-6s-f7-flight-controller
+
 F722 MINI Timer problem:
 https://github.com/iNavFlight/inav/issues/6264
 
