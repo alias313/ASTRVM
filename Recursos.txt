@@ -10,7 +10,8 @@ https://clevercreations.org/how-to-desolder-guide/
 Sketch uses too much memory:
 https://github.com/SensorsIot/Bluetooth-BLE-on-Arduino-IDE/issues/3
 
-
+DSHOT ESP32:
+https://www.esp32.com/viewtopic.php?t=8822
 
 Serial communication VSCode: 
 https://engineer2you.blogspot.com/2016/12/arduino-serial-communication-visual.html
