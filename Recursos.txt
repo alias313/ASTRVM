@@ -7,6 +7,9 @@ SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pin
 Cómo desoldar:
 https://clevercreations.org/how-to-desolder-guide/
 
+F722 MINI Timer problem:
+https://github.com/iNavFlight/inav/issues/6264
+
 Sketch uses too much memory:
 https://github.com/SensorsIot/Bluetooth-BLE-on-Arduino-IDE/issues/3
 
