@@ -4,6 +4,9 @@ Radio LoRa Ra-01 With STM32 and ESP32: https://www.instructables.com/Radio-LoRa-
 Ra-01 LoRa Module: https://docs.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf
 SX1278 LoRa RF Module: https://microcontrollerslab.com/sx1278-lora-rf-module-pinout-arduino-interfacing-datasheet/
 
+PID example:
+playground.arduino.cc/Code/PIDLibaryBasicExample
+
 Cómo desoldar:
 https://clevercreations.org/how-to-desolder-guide/
 
