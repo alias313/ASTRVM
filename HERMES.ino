@@ -1,4 +1,6 @@
 #include <Wire.h>
+#include <SPI.h>
+#include <LoRa.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <Adafruit_BME280.h>
@@ -15,6 +17,14 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 Adafruit_BME280 bme; // I2C
 
 unsigned long delayTime;
+
+#define ss 5
+#define rst 14
+#define dio0 4
+
+int counter = 0;
+
+const int LED_BUILTIN = 2;
 
 /**************************************************************************/
 /*
@@ -152,6 +162,28 @@ void setup(void)
     Serial.println("No se pudo encontrar un sensor BME280 valido, comprueba el cableado!");
     while (1);
   }
+  //setup led
+  pinMode(LED_BUILTIN, OUTPUT);
+  //initialize Serial Monitor
+  Serial.begin(115200);
+  while (!Serial);
+  Serial.println("Transmisor LoRa");
+
+  //setup LoRa transceiver module
+  LoRa.setPins(ss, rst, dio0);
+  
+  //replace the LoRa.begin(---E-) argument with your location's frequency 
+  //433E6 for Asia
+  while (!LoRa.begin(433E6)) {
+    Serial.println(".");
+    delay(500);
+  }
+  // Change sync word (0xF3) to match the receiver
+  // The sync word assures you don't get LoRa messages from other LoRa transceivers
+  // ranges from 0-0xFF
+  LoRa.setSyncWord(0xF3);
+  Serial.println("Inicializacion LoRa OK!");
+  
   delayTime = 1000;
 }
 
@@ -187,4 +219,19 @@ void loop(void)
   printBME280();
   /* Wait the specified delay before requesting nex data */
   delay(BNO055_SAMPLERATE_DELAY_MS);
+
+  Serial.print("Enviando paquete: ");
+  Serial.println(counter);
+
+  //Send LoRa packet to receiver
+  LoRa.beginPacket();
+  LoRa.print("hola ");
+  LoRa.print(counter);
+  LoRa.endPacket();
+
+  counter++;
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(900);
 }
