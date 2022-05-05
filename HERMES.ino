@@ -5,6 +5,8 @@
 #include <Adafruit_BNO055.h>
 #include <Adafruit_BME280.h>
 #include <utility/imumaths.h>
+#include <TinyGPSPlus.h>
+#include <SoftwareSerial.h>
 
 /* Set the delay between fresh samples */
 #define BNO055_SAMPLERATE_DELAY_MS (100)
@@ -26,12 +28,20 @@ int counter = 0;
 
 const int LED_BUILTIN = 2;
 
-/**************************************************************************/
 /*
-    Displays some basic information on this sensor from the unified
-    sensor API sensor_t type (see Adafruit_Sensor for more information)
+   This sample code demonstrates the normal use of a TinyGPSPlus (TinyGPSPlus) object.
+   It requires the use of SoftwareSerial, and assumes that you have a
+   4800-baud serial GPS device hooked up on pins 4(rx) and 3(tx).
 */
-/**************************************************************************/
+static const int RXPin = 4, TXPin = 3;
+static const uint32_t GPSBaud = 4800;
+
+// The TinyGPSPlus object
+TinyGPSPlus gps;
+
+// The serial connection to the GPS device
+SoftwareSerial ss(RXPin, TXPin);
+
 void displaySensorDetails(void)
 {
   sensor_t sensor;
@@ -48,11 +58,6 @@ void displaySensorDetails(void)
   delay(500);
 }
 
-/**************************************************************************/
-/*
-    Display some basic info about the sensor status
-*/
-/**************************************************************************/
 void displaySensorStatus(void)
 {
   /* Get the system status values (mostly for debugging purposes) */
@@ -72,11 +77,6 @@ void displaySensorStatus(void)
   delay(500);
 }
 
-/**************************************************************************/
-/*
-    Display sensor calibration status
-*/
-/**************************************************************************/
 void displayCalStatus(void)
 {
   /* Get the four calibration values (0..3) */
@@ -125,11 +125,6 @@ void printBME280() {
   Serial.println();
 }
 
-/**************************************************************************/
-/*
-    Arduino setup function (automatically called at startup)
-*/
-/**************************************************************************/
 void setup(void)
 {
   Serial.begin(115200);
@@ -183,18 +178,23 @@ void setup(void)
   // ranges from 0-0xFF
   LoRa.setSyncWord(0xF3);
   Serial.println("Inicializacion LoRa OK!");
-  
+
+  ss.begin(GPSBaud);
+      
   delayTime = 1000;
 }
 
-/**************************************************************************/
-/*
-    Arduino loop function, called once 'setup' is complete (your own code
-    should go here)
-*/
-/**************************************************************************/
 void loop(void)
 {
+  while (ss.available() > 0)
+    if (gps.encode(ss.read()))
+      displayInfo();
+
+  if (millis() > 5000 && gps.charsProcessed() < 10)
+  {
+    Serial.println(F("No GPS detected: check wiring."));
+    while(true);
+  }
   /* Get a new sensor event */
   sensors_event_t event;
   bno.getEvent(&event);
@@ -228,10 +228,61 @@ void loop(void)
   LoRa.print("hola ");
   LoRa.print(counter);
   LoRa.endPacket();
-
+  
   counter++;
   digitalWrite(LED_BUILTIN, HIGH);
   delay(100);
   digitalWrite(LED_BUILTIN, LOW);
   delay(900);
+}
+
+void displayInfo()
+{
+  Serial.print(F("Location: ")); 
+  if (gps.location.isValid())
+  {
+    Serial.print(gps.location.lat(), 6);
+    Serial.print(F(","));
+    Serial.print(gps.location.lng(), 6);
+  }
+  else
+  {
+    Serial.print(F("INVALID"));
+  }
+
+  Serial.print(F("  Date/Time: "));
+  if (gps.date.isValid())
+  {
+    Serial.print(gps.date.month());
+    Serial.print(F("/"));
+    Serial.print(gps.date.day());
+    Serial.print(F("/"));
+    Serial.print(gps.date.year());
+  }
+  else
+  {
+    Serial.print(F("INVALID"));
+  }
+
+  Serial.print(F(" "));
+  if (gps.time.isValid())
+  {
+    if (gps.time.hour() < 10) Serial.print(F("0"));
+    Serial.print(gps.time.hour());
+    Serial.print(F(":"));
+    if (gps.time.minute() < 10) Serial.print(F("0"));
+    Serial.print(gps.time.minute());
+    Serial.print(F(":"));
+    if (gps.time.second() < 10) Serial.print(F("0"));
+    Serial.print(gps.time.second());
+    Serial.print(F("."));
+    if (gps.time.centisecond() < 10) Serial.print(F("0"));
+    Serial.print(gps.time.centisecond());
+  }
+  else
+  {
+    Serial.print(F("INVALID"));
+  }
+
+  Serial.println();
 }
