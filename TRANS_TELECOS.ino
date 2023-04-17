@@ -1,8 +1,3 @@
-/*********
-  Modified from the examples of the Arduino LoRa library
-  More resources: https://randomnerdtutorials.com
-*********/
-
 #include <SPI.h>
 #include <LoRa.h>
 
@@ -27,8 +22,8 @@ void setup() {
   LoRa.setPins(ss, rst, dio0);
   
   //replace the LoRa.begin(---E-) argument with your location's frequency 
-  //433E6 for Asia
-  while (!LoRa.begin(433E6)) {
+  //868E6 for Spain
+  while (!LoRa.begin(868E6)) {
     Serial.println(".");
     delay(500);
   }
